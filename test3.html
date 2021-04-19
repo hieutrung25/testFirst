@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    let numbers=[6,7,8,9,6,28]
+    findPerfectNum(numbers)
+    function findPerfectNum(arr){
+        let sum=0
+        let count=""
+        for(let i=0; i<arr.length; i++){
+            for(let j=0; j<arr[i]; j++){
+                if(arr[i] > 0 && arr[i]%j == 0){
+                    sum += j
+                    if(sum == arr[i]){
+                        count += i + ","
+                    }
+                }
+            }
+            sum=0
+        }
+        document.write("Chỉ số của các số hoàn hảo trong mảng là: "+count)
+    }
+</script>
+</body>
+</html>
