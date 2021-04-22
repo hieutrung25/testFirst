@@ -2,51 +2,64 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Quản lý khách hàng</title>
+    <title>Title</title>
 </head>
 <body>
-<h2>Quan Ly Khach Hang</h2>
-<div>
-    <input id="inputKhachHang" type="text" name="" />
-    <button onclick="add();">Add</button>
-    <br />
-</div>
+<table id="show" width="50%" border="1">
 
-<br />
-
-<div id="formEdit"></div>
-
-<div>
-    <h2>Khách Hàng</h2>
-    <div id="tableProduct"></div>
-</div>
-
+</table>
+<b>Click để sửa thông tin!</b><br>
+<b>Click Delete xóa khách hàng!</b><br>
+<b>Click Add khách hàng!</b>
+<input type="button" value="Add" onclick="addCustomer()">
 <script>
-    let products = [
-        "Mã KH",
-        "Họ và tên",
-        "Ngày Sinh"
-
+    let customerList = [
+        ["01","Nguyễn Việt Tiến","08/08/1988","Nam","Xã A, Huyện B, Thành phố C"],
+        ["02","Lê Tuấn Anh","07/07/1997","Nam","Xã D, Huyện B, Thành phố C"],
+        ["03","Nguyễn Trung Hiệu","06/06/1996","Nam","Xã E, Huyện F, Thành phố G"]
     ];
-    function add() {
-        let temp = document.getElementById("inputNewProduct");
-        products.push(temp.value);
-        show();
-        temp.value = "";
-        temp.focus();
+    let str ="";
+    showList();
+    function showList() {
+        str ="<tr>\n" +
+            "        <th>Mã Khách hàng</th>\n" +
+            "        <th>Tên Khách hàng</th>\n" +
+            "        <th>Ngày sinh</th>\n" +
+            "        <th>Giới tính</th>\n" +
+            "        <th>Địa chỉ</th>\n" +
+            "        <th></th>\n" +
+            "    </tr>"
+        for (let i=0;i<customerList.length;i++) {
+            str+="<tr>";
+            for (let j=0;j<customerList[i].length;j++){
+                str+="<td onclick='editInformation(this)'>"+customerList[i][j]+"</td>"
+            }
+            str+="<td><input type='button' value='Delete' onclick='deleteCustomer(this)'></td>"+"</tr>";
+        }
+        document.getElementById('show').innerHTML = str;
     }
-
-    function remove(index) {
-        products = products.filter(function(e, i) {
-            return i !== index;
-        });
-        show();
+    function deleteCustomer(index) {
+        customerList.splice(index,1);
+        str = ""
+        showList()
     }
-
-    function update(index) {
-        products[index] = document.getElementById("edit").value;
-        document.getElementById("formEdit").innerHTML = "";
-        show();
+    function editInformation(value){
+        let name = value.innerHTML;
+        value.innerHTML = prompt("Nhap thong tin moi:");
+        if (value.innerHTML == ""){
+            value.innerHTML = name;
+        }
+    }
+    function addCustomer(){
+        let id = prompt("Mã khách hàng: ")
+        let name = prompt("Họ và tên khách hàng: ")
+        let bithday = prompt("Ngày tháng năm sinh: ")
+        let gender = prompt("Giới tính : ")
+        let address = prompt("Địa chỉ: ")
+        let newCustomer = new Array(id,name,bithday,gender,address)
+        customerList.push(newCustomer)
+        str=""
+        showList();
     }
 
 </script>
